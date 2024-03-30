@@ -1,0 +1,26 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('bg.jpg') no-repeat center center fixed; 
+    background-size: cover;
+    font-family: 'Oswald', sans-serif;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+#countdown {
+    text-align: center;
+    font-size: 3rem; /* Large text */
+    font-weight: bold;
+}
+
+
+@media (max-width: 768px) {
+    #countdown {
+        font-size: 2rem;
+    }
+}
