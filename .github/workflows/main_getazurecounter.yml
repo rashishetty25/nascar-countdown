@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/azure/functions-action
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy dotnet core project to Azure Function App - getazurecounter
+name: Build and deploy dotnet core project to Azure Function App - GetAzureCounter
 
 on:
   push:
@@ -16,9 +16,6 @@ env:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write #This is required for requesting the JWT
-
     steps:
       - name: 'Checkout GitHub Action'
         uses: actions/checkout@v4
@@ -34,19 +31,12 @@ jobs:
           pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
           dotnet build --configuration Release --output ./output
           popd
-      
-      - name: Login to Azure
-        uses: azure/login@v1
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_55E455F9464A4A46900DA8B505FFB083 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_66E91F10D65D4939AC57BBA57A9248AC }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_1256D6F123DB4CC8815DFAD4B6781477 }}
 
       - name: 'Run Azure Functions Action'
         uses: Azure/functions-action@v1
         id: fa
         with:
-          app-name: 'getazurecounter'
+          app-name: 'GetAzureCounter'
           slot-name: 'Production'
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
-          
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1B32EB4DA69B49A097D7714C2EB36CB2 }}
