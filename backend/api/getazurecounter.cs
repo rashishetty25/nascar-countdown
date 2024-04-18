@@ -11,16 +11,15 @@ using System.Net.Http;
 using System.Text;
 using Microsoft.Azure.WebJobs.Extensions.CosmosDB;
 
-
 namespace Company.Function
 {
-    public static class azurecounter
+    public static class getazurecounter
     {
-        [FunctionName("azurecounter")]
+        [FunctionName("getazurecounter")]
         public static HttpResponseMessage Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
-            [CosmosDB(databaseName:"azurecounter", collectionName: "Counter", ConnectionStringSetting = "azurecounterConnectionString", Id = "1", PartitionKey = "1")] Counter counter,
-            [CosmosDB(databaseName:"azurecounter", collectionName: "Counter", ConnectionStringSetting = "azurecounterConnectionString", Id = "1", PartitionKey = "1")] out Counter updatedCounter,
+            [CosmosDB(databaseName:"azurecounter", containerName: "Counter", Connection = "AzureCounterConnectionString", Id = "1", PartitionKey = "1")] Counter counter,
+            [CosmosDB(databaseName:"azurecounter", containerName: "Counter", Connection = "AzureCounterConnectionString", Id = "1", PartitionKey = "1")] out Counter updatedCounter,
             ILogger log)
         {
             // Here is where the counter gets updated.
